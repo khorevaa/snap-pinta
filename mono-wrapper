@@ -1,0 +1,6 @@
+#!/bin/sh
+# This script sets the mono path so mono can find system DLLs within the snap.
+export MONO_PATH=$SNAP/usr/lib/mono/4.5:$SNAP/usr/lib/mono/4.0:$SNAP/usr/lib/mono/3.5:$SNAP/usr/lib/mono/2.0:$SNAP/usr/lib/cli
+# We add every package manually... there has to be a better way!
+export MONO_PATH=$MONO_PATH:$SNAP/usr/lib/cli/atk-sharp-2.0:$SNAP/usr/lib/cli/gdk-sharp-2.0:$SNAP/usr/lib/cli/gtk-dotnet-2.0:$SNAP/usr/lib/cli/Mono.Addins-0.2:$SNAP/usr/lib/cli/Mono.Addins.Gui-0.2:$SNAP/usr/lib/cli/pango-sharp-2.0:$SNAP/usr/lib/cli/glib-sharp-2.0:$SNAP/usr/lib/cli/gtk-sharp-2.0:$SNAP/usr/lib/cli/Mono.Addins.CecilReflector-0.2:$SNAP/usr/lib/Mono.Addins.Setup-0.2
+exec "$@"

@@ -12,7 +12,8 @@ confinement: strict
 
 apps:
   pinta:
-    command: desktop-launch $SNAP/usr/bin/mono $SNAP/bin/pinta
+# TODO: Clean up this unix centipede of commands.
+    command: desktop-launch $SNAP/bin/mono-wrapper $SNAP/usr/bin/mono-sgen --desktop $SNAP/lib/pinta/Pinta.exe
     plugs: [x11, opengl, home]        
 parts:
   patch:
@@ -51,4 +52,9 @@ parts:
     #Apply a patch so it builds with mono 4.x
     prepare: |
       patch -p 2 -i ../../patch/build/mono-4.0.patch 
-    after: [patch, desktop-gtk2]  
+    after: [patch, desktop-gtk2]
+
+  mono-wrapper:
+    plugin: copy
+    files:
+      mono-wrapper: bin/mono-wrapper

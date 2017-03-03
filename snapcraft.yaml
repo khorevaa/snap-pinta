@@ -12,8 +12,8 @@ confinement: strict
 
 apps:
   pinta:
-    command: bin/pinta
-    plugs: [x11, home]        
+    command: desktop-launch $SNAP/usr/bin/mono $SNAP/bin/pinta
+    plugs: [x11, opengl, home]        
 parts:
   patch:
     plugin: dump
@@ -21,10 +21,7 @@ parts:
 
   pinta:
     stage-packages:
-      - gnome-icon-theme
       - libc6
-      - libcairo2
-      - libgdk-pixbuf2.0-0
       - libglib2.0-cil
       - libgtk2.0-cil
       - libmono-addins-gui0.2-cil
@@ -54,4 +51,4 @@ parts:
     #Apply a patch so it builds with mono 4.x
     prepare: |
       patch -p 2 -i ../../patch/build/mono-4.0.patch 
-    after: [patch]  
+    after: [patch, desktop-gtk2]  

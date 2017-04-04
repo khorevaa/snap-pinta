@@ -12,9 +12,8 @@ confinement: strict
 
 apps:
   pinta:
-# TODO: Clean up this unix centipede of commands.
-    command: desktop-launch $SNAP/bin/mono-wrapper $SNAP/usr/bin/mono-sgen --desktop $SNAP/lib/pinta/Pinta.exe
-    plugs: [x11, opengl, home]        
+    command: desktop-launch $SNAP/bin/wrapper $SNAP/usr/bin/mono-sgen --desktop $SNAP/lib/pinta/Pinta.exe
+    plugs: [x11, opengl, home] 
 parts:
   patch:
     plugin: dump
@@ -22,18 +21,21 @@ parts:
 
   pinta:
     stage-packages:
+      - gnome-icon-theme
       - libc6
+      - libcairo2
+      - libgdk-pixbuf2.0-0
       - libglib2.0-cil
-      - libgtk2.0-cil
+      - libgtk2.0-cil 
       - libmono-addins-gui0.2-cil
       - libmono-addins0.2-cil
       - libmono-cairo4.0-cil
-      - libmono-corlib4.5-cil
+      - libmono-corlib4.5-cil 
       - libmono-posix4.0-cil
       - libmono-sharpzip4.84-cil
-      - libmono-system-core4.0-cil 
+      - libmono-system-core4.0-cil
       - libmono-system-xml4.0-cil
-      - libmono-system4.0-cil
+      - libmono-system4.0-cil 
       - mono-runtime
     build-packages:
       - build-essential
@@ -54,7 +56,7 @@ parts:
       patch -p 2 -i ../../patch/build/mono-4.0.patch 
     after: [patch, desktop-gtk2]
 
-  mono-wrapper:
+  wrapper:
     plugin: copy
     files:
-      mono-wrapper: bin/mono-wrapper
+      wrapper: bin/wrapper
